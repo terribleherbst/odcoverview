@@ -113,11 +113,11 @@
 				<section>
 					<h2>Availability</h2>
 					<p>MongDB is available for Windows, Linux and Mac.</p>
-					<p>There are also Enterprise Editions and Managed Service solutions available</p>
+					<p>There are also Enterprise Editions and Managed Service solutions out there.</p>
 				</section>
                 
                 <section>
-                    <h2>The Basic hierachy</h2>
+                    <h2>The Basic structure</h2>
                     <ol>
                         <li class="fragment roll-in">Database</li>
                         <li class="fragment roll-in">Collection</li>
@@ -196,8 +196,7 @@ db.articles.update(
       $set: {
         category: "apparel",
         details: { model: "14Q3", manufacturer: "XYZ Company" }
-      },
-      $currentDate: { lastModified: true }
+      }
     }
 )                        
                     </code></pre>
@@ -257,7 +256,7 @@ DB db = mongoClient.getDB( "mydb" );
             <section>
                     <h2>Getting a collection</h2>
                     <pre><code>                
-DBCollection coll = db.getCollection("testCollection");                
+DBCollection coll = db.getCollection("articles");                
                     </code></pre>
             </section>
 
@@ -266,9 +265,9 @@ DBCollection coll = db.getCollection("testCollection");
                         <h2>Inserting an object</h2>
                         <pre><code>
     BasicDBObject doc = new BasicDBObject("article", "Syrah")
-            .append("type", "database")
-            .append("count", 1)
-            .append("info", new BasicDBObject("x", 203).append("y", 102));
+            .append("color", "red")
+            .append("count", 23)
+            .append("info", new BasicDBObject("country", "Australia").append("year", 2010));
     coll.insert(doc);
                         </code></pre>
                     </section>   
@@ -277,8 +276,8 @@ DBCollection coll = db.getCollection("testCollection");
                 <section>
                     <h2>Searching an object</h2>
                     <pre><code>
-query = new BasicDBObject("j", new BasicDBObject("$ne", 3))
-        .append("k", new BasicDBObject("$gt", 10));
+query = new BasicDBObject("year", new BasicDBObject("$ne", 2014))
+        .append("price", new BasicDBObject("$gt", 10));
 
 cursor = coll.find(query);
 
@@ -345,7 +344,7 @@ public class MongoJobDatabase extends AbstractMongoConfiguration {
                     <section>
                         <h2>Query data</h2>
                         <pre><code>                    
-Article aticle = mongoConfig.template().findOne(
+Article article = mongoConfig.template().findOne(
         Query.query(Criteria.where("articleNo").is("4711")),
         Article.class);     
                          </code></pre>
@@ -367,13 +366,12 @@ public class Article {
                      <section>
                          <h2>Delete data</h2>
                          <pre><code>             
- MongoTemplate template = config.template();
-        template.delete(Query.query(where("category").is("wine"))); 
+MongoTemplate template = config.template();
+template.delete(Query.query(where("category").is("wine"))); 
                           </code></pre>
                       </section>        
                              
                 </section>
-                
                     
                     
 
