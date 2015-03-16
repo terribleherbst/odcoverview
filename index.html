@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>MongoDB </title>
+		<title>10m.OnDemand Connector </title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Jörg Herbst">
@@ -41,361 +41,95 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>MongoDB</h1>
-					<h3>One of worlds leading NoSQL databases</h3>
+					<h2>10m.OnDemand Connector</h2>
+                    <section>
+						<p >Document extraction</p>
+						<p >Secure storage</p>
+						<p >Information retrieval</p>
 					<p>
 						<small>Presentation by <a href="http://twitter.com/terribleherbst">Jörg Herbst</a> / <a href="http://www.10m.de">10m</a></small>
 					</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Technical Overview</h2>
+                    <section>
+						<p class="fragment roll-in">ODC Server (Virtual Maschine) </p>
+                        <p class="fragment roll-in">Browser based Configuration</p>
+						<p class="fragment roll-in">Archive Server Adapter</p>
+						<p class="fragment roll-in">Several Document Sources</p>
+                        
+                        
+					</section>
 				</section>
 
                 <section>
 					<section>
-						<h2>No SQL ?</h2>
-						<p>What does this mean?</p>
-						<p class="fragment roll-in">highly scalable</p>
-						<p class="fragment roll-in">fast</p>
-						<p class="fragment roll-in">easy to use</p>
-						<p class="fragment roll-in">free</p>
+						<h2>IBM Notes Journal Connector</h2>
+						<p class="fragment roll-in">Be <span class="fragment highlight-red" >auditable</span> for you Email traffic</p>
+						<p class="fragment roll-in">Store any information you receive as email </p>
+						<p class="fragment roll-in">Store emails platform and <span class="fragment highlight-red" > mail system independent</span></p>
+						<p class="fragment roll-in">Drop in replacement for ICC for Lotus Notes </p>
+					<p>
+						<small>Requires an addional configuration database for specifying archiving rules</small>
+					</p>                        
 					</section>
                 </section>
                 
-				<section>
-					<h2>SQL Table</h2>
-					<table>
-						<thead>
-							<tr>
-								<th>ArtikelNo</th>
-								<th>Description</th>
-								<th>Price</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>4711</td>
-								<td>Red Wine</td>
-								<td>$ 7</td>
-							<tr>
-							<tr>
-								<td>0815</td>
-								<td>Orange Juice</td>
-								<td>$ 18</td>
-							<tr>
-							<tr>
-								<td>1234</td>
-								<td>Black Tea</td>
-								<td>$ 2</td>
-							<tr>
-						</tbody>
-					</table>
-				</section>
-
-				<section>
-					<h2>JSON Data</h2>
-					<pre><code data-trim contenteditable>
-{ "id": "0001",
-  "type": "donut",
-  "name": "Cake",
-  "ppu": 0.55,
-  "batters": {
-	  "batter": [
-       { "id": "1001", "type": "Regular" },
-       { "id": "1002", "type": "Chocolate" }]
-     },
-  "topping":[
-       { "id": "5001", "type": "None" },
-       { "id": "5002", "type": "Glazed" }]
-}
-					</code></pre>
-					
-				</section>
-                
-
-				<section>
-					<h2>Availability</h2>
-					<p>MongDB is available for Windows, Linux and Mac.</p>
-					<p>There are also Enterprise Editions and Managed Service solutions out there.</p>
-				</section>
-                
-                <section>
-                    <h2>The Basic structure</h2>
-                    <ol>
-                        <li class="fragment roll-in">Database</li>
-                        <li class="fragment roll-in">Collection</li>
-                        <li class="fragment roll-in">Object</li>
-                </section>
-                
-                <section>
-                <section>
-                    <h2>The Commandline client</h2>
-                    <p>Mongo comes with a commandline client named <em>mongoshell</em> which connects to the local
-                        instance by default.</p>
-                        
-                     <p>More information below</p>
-                </section>
-                
-
-                <section>
-                        <h2>Creating Data</h2>
-                        <pre><code>
-db.articles.insert(
-   {
-     item: "Syrah",
-     details: {
-        model: "14Q3",
-        manufacturer: "Hugo Santient"
-     },
-     stock: [ { size: "S", qty: 25 }, { size: "M", qty: 50 } ],
-     category: "wine"
-   }
-)                            
-                        </code></pre>
+                <section data-background="img/journal.png">
                 </section>
 
                 <section>
-                    <h2>Finding Data</h2>
-                    <p>You must describe you're query using a query object</p>
-                    <pre><code>
-db.articles.find(  )
-                    </code></pre>                    
-                    <pre><code>
-db.articles.find( { articleNo: "4711" } )
-                    </code></pre>
-        
-                </section>
-                
-                <section>
-                    <h2>Adding Conditions</h2>
-                    <pre><code>
-db.articles.find(
-   {
-     type: 'food',
-     $or: [ { qty: { $gt: 100 } }, { price: { $lt: 9.95 } } ]
-   }
-)
-                    </code></pre>
-                </section>
-                
-
-
-                <section>
-                    <h2>Adding Conditions</h2>
-                    <pre><code>
-db.articles.find(
-   {
-     type: 'food',
-     $or: [ { qty: { $gt: 100 } }, { price: { $lt: 9.95 } } ]
-   }
-)
-                    </code></pre>
-                </section>
-                
-                <section>
-                    <h2>Changing Data</h2>
-                    <pre><code>
-db.articles.update(
-    { articleNo: "4711" },
-    {
-      $set: {
-        category: "apparel",
-        details: { model: "14Q3", manufacturer: "XYZ Company" }
-      }
-    }
-)                        
-                    </code></pre>
-                    <p>Be aware of the <em>$set</em> operator.
-                </section>
-                
-                <section>
-                    <h2>Removing Data</h2>
-                    <pre><code>
-db.articles.remove(
-    { articleNo: "4711" }
-)                        
-                    </code></pre>
-                </section>
-            </section>
-                      
-
-
-				<section>
-					<h2>Using Mongo</h2>
+					<section>
+						<h2>IBM Notes Database Connector</h2>
+						<p class="fragment roll-in">For any IBM Notes application</p>
+						<p class="fragment roll-in">For multiple IBM Domino mailboxes</p>
 					<p>
-						You can connect with <em>Java Driver</em> or use the <em>Spring Data API</em>
+						<small>Requires an addional configuration database for specifying archiving rules</small>
 					</p>
-                    <p>There ist also a new Java Driver 3.0 avaible but it's still beta</p>
-				</section>
-
-                
-                <section>
-                    <section>
-                        <h2>Mongo Java Driver</h2>
-                        <pre><code>
-<dependencies>
-    <dependency>
-        <groupId>org.mongodb</groupId>
-        <artifactId>mongo-java-driver</artifactId>
-        <version>2.9.3</version>
-    </dependency>
-</dependencies>
-                       </code></pre>
-                        <p>More information below</p>
+					</section>
                 </section>
-                
-                
-
-                <section>
-                    <h2>Connection from Java</h2>
-                    <pre><code>
-MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
-// or
-MongoClient mongoClient = new MongoClient(
-        Arrays.asList(new ServerAddress("localhost", 27017),
-                      new ServerAddress("localhost", 27018),
-                      new ServerAddress("localhost", 27019)));
-DB db = mongoClient.getDB( "mydb" );
-                    </code></pre>
+                <section data-background="img/dominodb.png">
                 </section>
 
-            <section>
-                    <h2>Getting a collection</h2>
-                    <pre><code>                
-DBCollection coll = db.getCollection("articles");                
-                    </code></pre>
-            </section>
-
-
-                    <section>
-                        <h2>Inserting an object</h2>
-                        <pre><code>
-    BasicDBObject doc = new BasicDBObject("article", "Syrah")
-            .append("color", "red")
-            .append("count", 23)
-            .append("info", new BasicDBObject("country", "Australia").append("year", 2010));
-    coll.insert(doc);
-                        </code></pre>
-                    </section>   
-
-
                 <section>
-                    <h2>Searching an object</h2>
-                    <pre><code>
-query = new BasicDBObject("year", new BasicDBObject("$ne", 2014))
-        .append("price", new BasicDBObject("$gt", 10));
+					<section>
+						<h2>IBM Notes Attachment Connector</h2>
+						<p class="fragment roll-in">Reduce the size of IBM Domino databases</p>
+						<p class="fragment roll-in">Speed up replication</p>
+						<p class="fragment roll-in">Overcome technical limitations</p>
+					</section>
+                </section>
 
-cursor = coll.find(query);
-
-try {
-    while(cursor.hasNext()) {
-        System.out.println(cursor.next());
-    }
-} finally {
-    cursor.close();
-}
-                        </code></pre>
-                    </section>         
-            </section>
-
- 
                 
                 <section>
-                <section>
-                    <h2>Using Spring</h2>
-                    <pre><code>
-<dependencies>
-    <dependency>
-        <groupId>org.springframework.data</groupId>
-        <artifactId>spring-data-mongodb</artifactId>
-        <version>1.6.1.RELEASE</version>
-    </dependency>
-</dependencies>
-</code></pre>
-                    <p>More information below</p>
-                </section>                     
-                    
-                    <section>
-                        <h2>Create a database</h2>
-                        <pre><code>
-public Mongo mongo() throws Exception {
-    if (mongoClient == null) {
-        mongoClient = new MongoClient("localhost");
-    }
-    return mongoClient;
-}                            
-                        </code></pre>
-                    </section>
-                    <section>
-                        <h2>Create a template</h2>
-                        <pre><code>
-public class MongoJobDatabase extends AbstractMongoConfiguration {
-
-    private MongoTemplate mongoTemplate;
-
-    @Override
-    public MongoTemplate template() {
-        try {
-            if (mongoTemplate == null) {
-                mongoTemplate = new MongoTemplate(
-                      mongoDbFactory(), mappingMongoConverter());
-            }
-            return mongoTemplate;
-        } catch (Throwable e) {
-            throw new e;
-        }
-    }  
-}
-                        </code></pre>
-                    </section>
-                    <section>
-                        <h2>Query data</h2>
-                        <pre><code>                    
-Article article = mongoConfig.template().findOne(
-        Query.query(Criteria.where("articleNo").is("4711")),
-        Article.class);     
-                         </code></pre>
-                     </section>
-                     
-                     <section>
-                         <h2>Save data</h2>
-                         <pre><code>                    
-mongoConfig.template()
-     .store(article);
-                          </code></pre>
-                          <pre><code>
-public class Article {
-    @org.springframework.data.annotation.Id
-    String articleNo;
-                          </code></pre>
-                      </section>
-                      
-                     <section>
-                         <h2>Delete data</h2>
-                         <pre><code>             
-MongoTemplate template = config.template();
-template.delete(Query.query(where("category").is("wine"))); 
-                          </code></pre>
-                      </section>        
-                             
+					<section>
+						<h2>Network File Connector</h2>
+						<p class="fragment roll-in">Archive <span class="fragment highlight-red" >any documents</span> on your file system</p>
+						<p class="fragment roll-in">Add metadata from filenames </p>
+						<p class="fragment roll-in">Access CMOD <span class="fragment highlight-red" >without programming</span></p>
+					</section>
                 </section>
-                    
-                    
-
+                <section data-background="img/filecollector.png">
+                </section>
+                
+                <section>
+					<section>
+						<h2>Remote API</h2>
+						<p class="fragment roll-in">Connect web based application with CMOD</p>
+						<p class="fragment roll-in">Based an standard web technoloy (REST, JSON)</p>
+						<p class="fragment roll-in">No driver or client installation necessary</p>
+					</section>
+                </section>                
 
 				<section>
 					<h2>More Information</h2>
 					<ul>
-                        <li><a href="https://www.mongodb.org/downloads">Mongo Download</a></li>
-						<li><a href="http://docs.mongodb.org/manual/">Mongo Documentation</a></li>
-						<li><a href="http://docs.mongodb.org/ecosystem/drivers/java/">Mongo Java Driver</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#parallax-background">Spring Data Mongo</a></li>
+                        <li><a href="http://www.10m.de/odc.html">ODC Homepage</a></li>
+                        <li><a href="http://confluence.10m.de/display/ODC/ODC">ODC Documentation</a></li>
+                        <li><a href="http://www.joergherbst.de">My Blog</a></li>
 					</ul>
-				</section>
-
-				<section style="text-align: left;">
-					<h1>THE END</h1>
-					<p>
-						- <a href="http://www.10m.de">My Company</a> <br>
-                        - <a href="http://www.joergherbst.de">My Blog</a> <br>
-					</p>
 				</section>
 
 			</div>
